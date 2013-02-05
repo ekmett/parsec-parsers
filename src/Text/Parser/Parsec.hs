@@ -25,7 +25,7 @@ import qualified Text.Parser.Token as P
 
 instance (Stream s m t, Show t) => P.Parsing (ParsecT s u m) where
   try           = try
-  (<?>)         = (P.<?>)
+  (<?>)         = (<?>)
   skipMany      = skipMany
   skipSome      = skipMany1
   unexpected    = unexpected
