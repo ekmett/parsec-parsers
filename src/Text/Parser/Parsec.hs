@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE UndecidableInstances #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 -----------------------------------------------------------------------------
@@ -13,7 +14,12 @@
 -- This module provides instances that permit @parsec@ parsers to use
 -- the combinators from the @parsers@ library.
 ----------------------------------------------------------------------------
-module Text.Parser.Parsec () where
+module Text.Parser.Parsec
+#if MIN_VERSION_parsers(0,10,0)
+{-# DEPRECATED "These instances are now included with the parsers package" #-}
+  () where
+#else
+  () where
 
 import Text.Parsec.Char
 import Text.Parsec.Combinator
@@ -43,3 +49,4 @@ instance Stream s m Char => P.CharParsing (ParsecT s u m) where
   string  = string
 
 instance Stream s m Char => P.TokenParsing (ParsecT s u m)
+#endif
